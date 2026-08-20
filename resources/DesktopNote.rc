@@ -1,0 +1,50 @@
+#pragma code_page(65001)
+#include <windows.h>
+#include "resource.h"
+
+IDI_DESKTOPNOTE ICON "DesktopNote.ico"
+1 RT_MANIFEST "DesktopNote.manifest"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,0
+ PRODUCTVERSION 2,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS VS_FF_DEBUG
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE 0x0L
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "080404b0"
+    BEGIN
+      VALUE "CompanyName", "DesktopNote\0"
+      VALUE "FileDescription", "DesktopNote 桌面便签\0"
+      VALUE "FileVersion", "2.0.0.0\0"
+      VALUE "InternalName", "DesktopNote\0"
+      VALUE "LegalCopyright", "Copyright (C) 2026 watersfree. MIT License.\0"
+      VALUE "OriginalFilename", "DesktopNote.exe\0"
+      VALUE "ProductName", "DesktopNote 桌面便签\0"
+      VALUE "ProductVersion", "2.0.0.0\0"
+    END
+    BLOCK "040904b0"
+    BEGIN
+      VALUE "CompanyName", "DesktopNote\0"
+      VALUE "FileDescription", "DesktopNote 桌面便签\0"
+      VALUE "FileVersion", "2.0.0.0\0"
+      VALUE "InternalName", "DesktopNote\0"
+      VALUE "LegalCopyright", "Copyright (C) 2026 watersfree. MIT License.\0"
+      VALUE "OriginalFilename", "DesktopNote.exe\0"
+      VALUE "ProductName", "DesktopNote 桌面便签\0"
+      VALUE "ProductVersion", "2.0.0.0\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0804, 1200, 0x0409, 1200
+  END
+END

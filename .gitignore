@@ -1,0 +1,17 @@
+/build/
+/dist/
+/.vs/
+/.vscode/
+/out/
+/scratch/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+*.pdb
+*.ilk
+*.log
+*.tlog
+*.lastbuildstate
+.DS_Store
+Thumbs.db

@@ -1,0 +1,72 @@
+name: Native CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v2.*']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset msvc-release
+
+      - name: Build
+        run: cmake --build --preset msvc-release --parallel
+
+      - name: Test
+        run: ctest --preset msvc-release
+
+      - name: Package and enforce single-file limits
+        shell: pwsh
+        run: |
+          $exe = Get-Item -LiteralPath 'build\msvc-release\Release\DesktopNote.exe'
+          if ($exe.Length -gt 5MB) {
+            throw "DesktopNote.exe is $($exe.Length) bytes; limit is 5 MiB"
+          }
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          Copy-Item -LiteralPath $exe.FullName -Destination 'dist\DesktopNote.exe'
+          $files = @(Get-ChildItem -LiteralPath dist -File)
+          if ($files.Count -ne 1 -or $files[0].Name -ne 'DesktopNote.exe') {
+            throw 'Release directory must contain exactly DesktopNote.exe'
+          }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DesktopNote-win-x64
+          path: dist/DesktopNote.exe
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v2.')
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: DesktopNote-win-x64
+          path: dist
+
+      - name: Publish v2 release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ github.ref_name }}'
+          if (gh release view $tag 2>$null) {
+            gh release upload $tag 'dist\DesktopNote.exe#DesktopNote.exe' --clobber
+          } else {
+            gh release create $tag 'dist\DesktopNote.exe#DesktopNote.exe' --verify-tag --generate-notes
+          }
