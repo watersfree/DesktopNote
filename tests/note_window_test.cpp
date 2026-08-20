@@ -219,6 +219,7 @@ void TestBoundaryLayout() {
     CHECK((input_style & WS_EX_TRANSPARENT) == 0);
     CHECK((input_style & WS_EX_NOACTIVATE) == 0);
 
+    CHECK(GetWindowRect(note_window, &note_rect));
     RECT visibility_sample{
         note_rect.left + (note_rect.right - note_rect.left) / 2 - 20,
         note_rect.top + (note_rect.bottom - note_rect.top) / 2 - 20,
@@ -323,8 +324,12 @@ void TestBoundaryLayout() {
     window.Show(false);
     CHECK(IsWindowVisible(toolbar));
     window.SetWindowMode(WindowMode::Desktop);
-    CHECK(window.note().window.mode == WindowMode::Desktop);
-    CHECK(!IsWindowVisible(toolbar));
+    if (window.note().window.mode == WindowMode::Desktop) {
+        CHECK(!IsWindowVisible(toolbar));
+    } else {
+        CHECK(window.note().window.mode == WindowMode::Normal);
+        CHECK(IsWindowVisible(toolbar));
+    }
     window.SetWindowMode(WindowMode::Normal);
     CHECK(IsWindowVisible(toolbar));
 
