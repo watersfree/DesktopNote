@@ -63,6 +63,7 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           $tag = '${{ github.ref_name }}'
           if (gh release view $tag 2>$null) {
