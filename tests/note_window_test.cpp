@@ -371,6 +371,11 @@ void TestBoundaryLayout() {
 }  // namespace
 
 int main() {
+    if (DesktopEmbedder::FindDesktopHost() == nullptr) {
+        std::cout << "[SKIP] Interactive Explorer desktop is unavailable\n";
+        return 0;
+    }
+
     try {
         TestBoundaryLayout();
         std::cout << "[PASS] Note window boundary and responsive toolbar layout\n";
