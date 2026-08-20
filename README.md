@@ -16,7 +16,7 @@ DesktopNote 是面向 Windows 10 22H2 和 Windows 11 x64 的原生桌面便签�
 
 ## 下载与运行
 
-从 [Releases](../../releases) 下载 `DesktopNote.exe` 后直接运行。程序只依赖 Windows 自带系统 DLL。
+已发布版本可从 [Releases](../../releases) 下载 `DesktopNote.exe`；尚未创建版本标签时，可从最新成功的 [Native CI](../../actions/workflows/native.yml) 下载 `DesktopNote-win-x64` 构建制品。程序只依赖 Windows 自带系统 DLL。
 
 数据保存在 `%APPDATA%\DesktopNote\data.json`。首次运行 v2 时，如果同目录只有旧版 `data.dat`，程序会自动迁移，并在 `backups` 目录保留带时间戳的原文件副本。旧文件不会被改写。
 
@@ -45,7 +45,7 @@ tests/        无外部框架的原生回归测试
 third_party/  固定版本的 nlohmann/json 单头文件及许可证
 ```
 
-详细操作见 [USER_GUIDE.md](USER_GUIDE.md)，发布与验收见 [RELEASE.md](RELEASE.md)。
+组件关系和关键不变量见 [ARCHITECTURE.md](ARCHITECTURE.md)，详细操作见 [USER_GUIDE.md](USER_GUIDE.md)，发布与验收见 [RELEASE.md](RELEASE.md)。
 
 ## 许可证
 
